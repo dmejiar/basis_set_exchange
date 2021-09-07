@@ -788,7 +788,7 @@ def truhlar_calendarize(basis, month, use_copy=True):
     return basis
 
 
-def autoaux_basis(basis):
+def autoaux_basis(basis, core_aux=False):
     '''Create an auxiliary basis set for the given orbital basis set for
 use with the resolution of the identity approximation. This is a
 simplified version of the routine where the electrons potentially
@@ -914,9 +914,14 @@ more accurate) auxiliary sets.
         lmax_aux = min(max(2 * lval, lmax + linc), 2 * lmax)
 
         # Values from Table I; factor 7.0 for P functions is missing in the paper
-        flaux = [20, 7.0, 4.0, 4.0, 3.5, 2.5, 2.0, 2.0]
+        flaux = [20.0, 7.0, 4.0, 4.0, 3.5, 2.5, 2.0, 2.0]
         blaux_big = [1.8, 2.0, 2.2, 2.2, 2.2, 2.3, 3.0, 3.0]
         b_small = 1.8
+
+        if core_aux:
+            print("YES")
+            flaux[0] = 40.0; flaux[1] = 15.0; flaux[2] = 8.0
+            blaux_big[0] = 2.2
 
         # Form actual upper limit for even-tempered expansion
         amax_aux = [None for _ in range(lmax_aux + 1)]

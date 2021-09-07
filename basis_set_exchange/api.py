@@ -103,6 +103,7 @@ def get_basis(name,
               augment_diffuse=0,
               augment_steep=0,
               get_aux=0,
+              core_aux=False,
               data_dir=None,
               header=True):
     '''Obtain a basis set
@@ -169,6 +170,9 @@ def get_basis(name,
         Instead of the orbital basis, get an auxiliary basis
         set. Options 0 (return orbital basis), 1 (return AutoAux
         basis), 2 (return Auto-ABS Coulomb fitting basis)
+    core_aux : bool
+        Tune AutoAux paremeters to give larger exponents for core
+        properties
     data_dir : str
         Data directory with all the basis set information. By default,
         it is in the 'data' subdirectory of this project.
@@ -280,7 +284,7 @@ def get_basis(name,
 
     # Did we actually want an auxiliary basis set?
     if get_aux == 1:
-        basis_dict = manip.autoaux_basis(basis_dict)
+        basis_dict = manip.autoaux_basis(basis_dict, core_aux)
     elif get_aux == 2:
         basis_dict = manip.autoabs_basis(basis_dict)
 
